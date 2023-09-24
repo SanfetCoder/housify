@@ -12,7 +12,8 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "https://yourfrontenddomain.com",
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://subtle-bunny-7e34cc.netlify.app"
 ]
 
 app = FastAPI()
