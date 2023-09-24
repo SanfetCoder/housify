@@ -6,6 +6,7 @@ import numpy as np
 import pickle
 from fastapi.middleware.cors import CORSMiddleware
 import joblib
+import uvicorn
 
 origins = [
     "http://localhost",
@@ -63,3 +64,6 @@ def predict_price(town, houseType):
     predicted_price = custom_output[0]
 
     return predicted_price
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=80)
