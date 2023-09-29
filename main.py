@@ -27,13 +27,13 @@ app.add_middleware(
 )
 
 # Define the name of the saved model file
-filename = "house_linear.pkl"
+filename = "house_tree.pkl"
 
 # de-serialize (load) the object
 model = pickle.load(open(filename, 'rb'))
 
 # Column Transformer
-ct = joblib.load('column_transformer.pkl')
+encoder = joblib.load('encoder.pkl')
 
 @app.get('/{town}/{houseType}')
 def root(town, houseType):
@@ -48,16 +48,7 @@ def predict_price(town, houseType):
     custom_value = pd.DataFrame({'Town': [town], 'Residential Type': [houseType]})
 
     # Encode the custom input data
-
-    # custom_input_encoded = np.array(ct.fit_transform(custom_value))
-    custom_input_encoded = ct.transform(custom_value)
-
-    print(f"Shape of custom_input_encoded: {custom_input_encoded.shape}")
-    print(f"Model: {model}")
-    # After loading the model
-    print(f"Coefficients: {model.coef_}")
-    print(f"Intercept: {model.intercept_}")
-
+    custom_input_encoded = encoder.transform(custom_value)
 
     # Make predictions
     custom_output = model.predict(custom_input_encoded)
